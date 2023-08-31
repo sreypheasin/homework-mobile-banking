@@ -22,7 +22,7 @@ public class Account {
     private String uuid;
 
     @Column(name = "transfer_limit")
-    private BigDecimal transferLimited;
+    private BigDecimal transferLimit;
 
     @Column(name = "act_name")
     private String accountName;

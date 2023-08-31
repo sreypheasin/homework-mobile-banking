@@ -55,14 +55,24 @@ public class DataSources {
                 .uuid(UUID.randomUUID().toString())
                 .accountName("Sin Sreyphea")
                 .accountNo("ab1234")
-                .transferLimited(BigDecimal.valueOf(1000))
+                .transferLimit(BigDecimal.valueOf(1000))
                 .isDeleted(false)
                 .pin("abcd12")
                 .build();
 
+        Account account2 = Account.builder()
+                .uuid(UUID.randomUUID().toString())
+                .accountName("Ing Muyleang")
+                .accountNo("cd1234")
+                .transferLimit(BigDecimal.valueOf(1000))
+                .isDeleted(false)
+                .pin("cdse1234")
+                .build();
+
+
         accountTypeRepository.saveAll(List.of(accountType1,accountType2,accountType3));
         userRepository.saveAll(List.of(user1,user2));
-        accountRepository.saveAll(List.of(account1));
+        accountRepository.saveAll(List.of(account1,account2));
 
     }
 }

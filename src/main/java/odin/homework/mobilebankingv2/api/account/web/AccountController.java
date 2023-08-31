@@ -24,26 +24,29 @@ public class AccountController {
         return accountService.findByUuid(uuid);
     }
 
-//    TODO: create new account
     @PostMapping
     public ResponseEntity<?> createNewAccount(@RequestBody CreateAccountDto createAccountDto){
         var newAccount = accountService.createNewAccount(createAccountDto);
         return ResponseEntity.ok(newAccount);
     }
 
-//    TODO: rename
-    @PutMapping("/{uuid}/rename")
+    @PostMapping("/{uuid}/rename")
     public ResponseEntity<?> renameAccount(@PathVariable String uuid, @RequestBody AccountRenameDto accountRenameDto){
 
         var accountRename = accountService.renameAccount(uuid,accountRenameDto);
         return ResponseEntity.ok(accountRename);
     }
+    @PostMapping("{uuid}/limit-transfer")
+    private String updateTransferLimit(@PathVariable String uuid, @RequestBody UpdateTransferLimitDto updateTransferLimitDto){
 
-//    TODO: update deleted status
+        var limit = accountService.updateTransferLimit(uuid, updateTransferLimitDto);
+        return limit;
+    }
+
     @PutMapping("/{uuid}/close")
     private String updateDeleteState(@PathVariable String uuid, @RequestBody UpdateDeleteStatusDto updateDeleteStatusDto){
+
         var accountStatus = accountService.updateDeleteStatus(uuid,updateDeleteStatusDto);
         return accountStatus;
     }
-
 }

@@ -1,9 +1,6 @@
 package odin.homework.mobilebankingv2.api.account;
 
-import odin.homework.mobilebankingv2.api.account.web.AccountDto;
-import odin.homework.mobilebankingv2.api.account.web.AccountRenameDto;
-import odin.homework.mobilebankingv2.api.account.web.CreateAccountDto;
-import odin.homework.mobilebankingv2.api.account.web.UpdateDeleteStatusDto;
+import odin.homework.mobilebankingv2.api.account.web.*;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 
@@ -40,8 +37,15 @@ public interface AccountService {
      * Update deleted status
      * @param uuid
      * @param updateDeleteStatusDto
-     * @return String
+     * @return String message
      */
     String updateDeleteStatus(String uuid, UpdateDeleteStatusDto updateDeleteStatusDto);
 
+    /**
+     * change transfer limit
+     * @param uuid
+     * @param updateTransferLimitDto
+     * @return string message
+     */
+    String updateTransferLimit (String uuid, UpdateTransferLimitDto updateTransferLimitDto);
 }

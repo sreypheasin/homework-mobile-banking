@@ -1,10 +1,7 @@
 package odin.homework.mobilebankingv2.api.account;
 
 import lombok.AllArgsConstructor;
-import odin.homework.mobilebankingv2.api.account.web.AccountDto;
-import odin.homework.mobilebankingv2.api.account.web.AccountRenameDto;
-import odin.homework.mobilebankingv2.api.account.web.CreateAccountDto;
-import odin.homework.mobilebankingv2.api.account.web.UpdateDeleteStatusDto;
+import odin.homework.mobilebankingv2.api.account.web.*;
 import odin.homework.mobilebankingv2.api.user.User;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -47,7 +44,7 @@ public class AccountServiceImpl implements AccountService{
         Account account = accountMapstruct.createAccountDtoToModel(createAccountDto);
 
         account.setUuid(UUID.randomUUID().toString());
-        account.setTransferLimited(BigDecimal.valueOf(500));
+        account.setTransferLimit(BigDecimal.valueOf(500));
 
         accountRepository.save(account);
 
@@ -77,5 +74,17 @@ public class AccountServiceImpl implements AccountService{
 
         return ("Account status is "+ accountStatus.getIsDeleted());
     }
+
+    @Override
+    public String updateTransferLimit(String uuid, UpdateTransferLimitDto updateTransferLimitDto) {
+
+        Account account = accountRepository.findByUuid(uuid).orElseThrow();
+        account.setTransferLimit(updateTransferLimitDto.transferLimit());
+
+        Account accountTransferLimit = accountRepository.save(account);
+
+        return ("Transfer limit has been change to " + accountTransferLimit.getTransferLimit());
+    }
+
 
 }

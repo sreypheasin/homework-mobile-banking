@@ -1,11 +1,14 @@
 package odin.homework.mobilebankingv2.api.user;
 
 
+import odin.homework.mobilebankingv2.api.account.Account;
 import odin.homework.mobilebankingv2.api.user.web.CreateUserDto;
 import odin.homework.mobilebankingv2.api.user.web.UpdateDeleteStatusDto;
 import odin.homework.mobilebankingv2.api.user.web.UserDto;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+
+import java.util.List;
 
 public interface UserService {
     /**
@@ -20,6 +23,23 @@ public interface UserService {
      * @return userDto
      */
     EntityModel<?> findByUuid(String uuid);
+
+    /**
+     * Find account by user uuid
+     * @param uuid
+     * @return
+     */
+    List<Account> findAccountByUserUuid(String uuid);
+
+    /**
+     * Find account by uuid using user uuid
+     * @param userUuid
+     * @param accountUuid
+     * @return Account
+     */
+    Account findAccountByUuidOfUserUuid(String userUuid, String accountUuid);
+
+
 
     /**
      * create new user

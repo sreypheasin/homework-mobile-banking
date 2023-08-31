@@ -1,6 +1,7 @@
 package odin.homework.mobilebankingv2.api.user.web;
 
 import lombok.RequiredArgsConstructor;
+import odin.homework.mobilebankingv2.api.account.Account;
 import odin.homework.mobilebankingv2.api.user.UserRepository;
 import odin.homework.mobilebankingv2.api.user.UserService;
 import org.springframework.hateoas.CollectionModel;
@@ -8,14 +9,14 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
     private final UserRepository userRepository;
-
-//    TODO: Find
 
     @GetMapping
     public CollectionModel<?> findAll(){
@@ -29,7 +30,18 @@ public class UserController {
         return userService.findByUuid(uuid);
     }
 
-//    TODO: Create new user
+    @GetMapping("/{uuid}/accounts")
+    public List<Account> findAllUserAccount(@PathVariable String uuid){
+        return userService.findAccountByUserUuid(uuid);
+    }
+
+    @GetMapping("/{userUuid}/accounts/{accountUuid}")
+    public ResponseEntity<Account> findAccountUuidWithUserUuid(@PathVariable String userUuid, @PathVariable String accountUuid){
+        Account account= userService.findAccountByUuidOfUserUuid(userUuid,accountUuid);
+        return ResponseEntity.ok(account);
+
+    }
+
     @PostMapping()
     public ResponseEntity<?> createNewUser(@RequestBody CreateUserDto createUserDto){
 
@@ -37,14 +49,6 @@ public class UserController {
         return ResponseEntity.ok(newUser);
     }
 
-//    TODO: Delete user by uuid
-    @DeleteMapping("/{uuid}")
-    public ResponseEntity<?> deletedByUuid(@PathVariable String uuid){
-        userService.deleteUserByUuid(uuid);
-        return ResponseEntity.ok("Deleted User Successfully!!");
-    }
-
-//    TODO: Updated user
     @PutMapping("/{uuid}")
     public EntityModel<?> updateUserByUuid(@PathVariable String uuid, @RequestBody CreateUserDto createUserDto){
 
@@ -52,13 +56,15 @@ public class UserController {
         return EntityModel.of(updatedUser);
     }
 
-//    TODO: Updated user status
     @PutMapping("/{uuid}/disable")
     public String updateStatus(@PathVariable String uuid, @RequestBody UpdateDeleteStatusDto updateDeleteStatusDto){
         return userService.updatedStatus(uuid, updateDeleteStatusDto);
     }
 
-
-
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<?> deletedByUuid(@PathVariable String uuid){
+        userService.deleteUserByUuid(uuid);
+        return ResponseEntity.ok("Deleted User Successfully!!");
+    }
 
 }

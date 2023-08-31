@@ -3,6 +3,7 @@ package odin.homework.mobilebankingv2.api.user;
 
 import lombok.RequiredArgsConstructor;
 import odin.homework.mobilebankingv2.api.user.web.CreateUserDto;
+import odin.homework.mobilebankingv2.api.user.web.UpdateDeleteStatusDto;
 import odin.homework.mobilebankingv2.api.user.web.UserDto;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -17,11 +18,12 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImp implements UserService{
+
     private final UserRepository userRepository;
     private final UserModelAssembler userModelAssembler;
     private final UserMapstruct userMapstruct;
 
-//    TODO: FInd
+//    TODO: Find
     @Override
     public CollectionModel<?> findAllUsers() {
 
@@ -75,4 +77,17 @@ public class UserServiceImp implements UserService{
         User user = userRepository.save(update);
         return userMapstruct.userToUserDto(user);
     }
+
+    @Override
+    public String updatedStatus(String uuid, UpdateDeleteStatusDto updateDeleteStatusDto) {
+
+        User user = userRepository.findByUuid(uuid).orElseThrow();
+
+        user.setIsDeleted(updateDeleteStatusDto.isDeleted());
+
+        User userStatus = userRepository.save(user);
+        return ("User status is "+ userStatus.getIsDeleted());
+    }
+
+
 }

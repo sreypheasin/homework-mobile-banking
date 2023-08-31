@@ -10,6 +10,7 @@ public record UserDto(
         String name,
         String gender,
         String email,
-        String phoneNumber
+        String phoneNumber,
+        Boolean isDeleted
 ) {
 }

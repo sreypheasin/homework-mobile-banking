@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import odin.homework.mobilebankingv2.api.account.web.AccountDto;
 import odin.homework.mobilebankingv2.api.account.web.AccountRenameDto;
 import odin.homework.mobilebankingv2.api.account.web.CreateAccountDto;
+import odin.homework.mobilebankingv2.api.account.web.UpdateDeleteStatusDto;
+import odin.homework.mobilebankingv2.api.user.User;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
@@ -63,6 +65,17 @@ public class AccountServiceImpl implements AccountService{
         Account renameAccount = accountRepository.save(account);
 
         return accountMapstruct.modelToDto(renameAccount);
+    }
+
+    @Override
+    public String updateDeleteStatus(String uuid, UpdateDeleteStatusDto updateDeleteStatusDto) {
+
+        Account account = accountRepository.findByUuid(uuid).orElseThrow();
+        account.setIsDeleted(updateDeleteStatusDto.isDeleted());
+
+        Account accountStatus = accountRepository.save(account);
+
+        return ("Account status is "+ accountStatus.getIsDeleted());
     }
 
 }

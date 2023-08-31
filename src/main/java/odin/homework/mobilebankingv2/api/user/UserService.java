@@ -2,6 +2,7 @@ package odin.homework.mobilebankingv2.api.user;
 
 
 import odin.homework.mobilebankingv2.api.user.web.CreateUserDto;
+import odin.homework.mobilebankingv2.api.user.web.UpdateDeleteStatusDto;
 import odin.homework.mobilebankingv2.api.user.web.UserDto;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -37,8 +38,17 @@ public interface UserService {
      * Update user by uuid
      * @param uuid
      * @param createUserDto
-     * @return
+     * @return UserDto
      */
     UserDto updateUserByUuid (String uuid, CreateUserDto createUserDto);
+
+    /**
+     * update user is_deleted status
+     * @param uuid
+     * @param updateDeleteStatusDto
+     * @return String message
+     */
+    String updatedStatus (String uuid, UpdateDeleteStatusDto updateDeleteStatusDto);
+
 
 }

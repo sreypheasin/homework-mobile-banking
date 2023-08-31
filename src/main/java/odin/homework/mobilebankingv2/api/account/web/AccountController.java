@@ -32,12 +32,18 @@ public class AccountController {
     }
 
 //    TODO: rename
-
     @PutMapping("/{uuid}/rename")
     public ResponseEntity<?> renameAccount(@PathVariable String uuid, @RequestBody AccountRenameDto accountRenameDto){
+
         var accountRename = accountService.renameAccount(uuid,accountRenameDto);
         return ResponseEntity.ok(accountRename);
     }
 
+//    TODO: update deleted status
+    @PutMapping("/{uuid}/close")
+    private String updateDeleteState(@PathVariable String uuid, @RequestBody UpdateDeleteStatusDto updateDeleteStatusDto){
+        var accountStatus = accountService.updateDeleteStatus(uuid,updateDeleteStatusDto);
+        return accountStatus;
+    }
 
 }

@@ -30,6 +30,9 @@ public class Account {
     @Column(name = "act_no")
     private String accountNo;
 
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
+
     private String pin;
 
     @ManyToOne

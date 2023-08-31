@@ -1,16 +1,12 @@
 package odin.homework.mobilebankingv2.api.user.web;
 
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import odin.homework.mobilebankingv2.api.user.User;
 import odin.homework.mobilebankingv2.api.user.UserRepository;
 import odin.homework.mobilebankingv2.api.user.UserService;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -48,18 +44,21 @@ public class UserController {
         return ResponseEntity.ok("Deleted User Successfully!!");
     }
 
-//    TODO: Updated is_deleted status
-    @PutMapping("/{uuid}/disable")
-    public String updateStatus (){
-        return  null;
-    }
-
+//    TODO: Updated user
     @PutMapping("/{uuid}")
     public EntityModel<?> updateUserByUuid(@PathVariable String uuid, @RequestBody CreateUserDto createUserDto){
 
         var updatedUser = userService.updateUserByUuid(uuid,createUserDto);
         return EntityModel.of(updatedUser);
     }
+
+//    TODO: Updated user status
+    @PutMapping("/{uuid}/disable")
+    public String updateStatus(@PathVariable String uuid, @RequestBody UpdateDeleteStatusDto updateDeleteStatusDto){
+        return userService.updatedStatus(uuid, updateDeleteStatusDto);
+    }
+
+
 
 
 }

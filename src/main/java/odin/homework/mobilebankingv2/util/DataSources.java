@@ -37,9 +37,9 @@ public class DataSources {
                 .uuid(UUID.randomUUID().toString())
                 .name("Odin")
                 .gender("f")
+                .isDeleted(false)
                 .email("odinn@gmail.com")
                 .phoneNumber("015 799 159")
-                .isDeleted(false)
                 .build();
         User user2 = User.builder()
                 .uuid(UUID.randomUUID().toString())
@@ -56,6 +56,7 @@ public class DataSources {
                 .accountName("Sin Sreyphea")
                 .accountNo("ab1234")
                 .transferLimited(BigDecimal.valueOf(1000))
+                .isDeleted(false)
                 .pin("abcd12")
                 .build();
 

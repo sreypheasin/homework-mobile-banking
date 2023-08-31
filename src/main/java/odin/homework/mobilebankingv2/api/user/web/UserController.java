@@ -43,9 +43,23 @@ public class UserController {
 
 //    TODO: Delete user by uuid
     @DeleteMapping("/{uuid}")
-    public EntityModel<?> deletedByUuid(@PathVariable String uuid){
-
-        
-        return null;
+    public ResponseEntity<?> deletedByUuid(@PathVariable String uuid){
+        userService.deleteUserByUuid(uuid);
+        return ResponseEntity.ok("Deleted User Successfully!!");
     }
+
+//    TODO: Updated is_deleted status
+    @PutMapping("/{uuid}/disable")
+    public String updateStatus (){
+        return  null;
+    }
+
+    @PutMapping("/{uuid}")
+    public EntityModel<?> updateUserByUuid(@PathVariable String uuid, @RequestBody CreateUserDto createUserDto){
+
+        var updatedUser = userService.updateUserByUuid(uuid,createUserDto);
+        return EntityModel.of(updatedUser);
+    }
+
+
 }

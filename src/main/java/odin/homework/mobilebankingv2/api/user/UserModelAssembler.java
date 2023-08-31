@@ -32,14 +32,13 @@ public class UserModelAssembler extends RepresentationModelAssemblerSupport<User
         UserDto userDto = userMapstruct.userToUserDto(entity);
 
         Link selfLink = linkTo(methodOn(UserController.class).findByUuid(entity.getUuid())).withSelfRel();
+        Link delete = linkTo(methodOn(UserController.class).deletedByUuid(entity.getUuid())).withRel("deleted");
         Link collectionLink = linkTo(methodOn(UserController.class).findAll()).withRel(IanaLinkRelations.COLLECTION);
 
-        return EntityModel.of(userDto,selfLink,collectionLink);
+        return EntityModel.of(userDto,selfLink,delete,collectionLink);
     }
-
     @Override
     public CollectionModel<EntityModel<UserDto>> toCollectionModel(Iterable<? extends User> entities) {
         return super.toCollectionModel(entities);
     }
-
 }

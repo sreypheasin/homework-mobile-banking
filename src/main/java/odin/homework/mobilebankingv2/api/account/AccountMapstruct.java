@@ -1,6 +1,7 @@
 package odin.homework.mobilebankingv2.api.account;
 
 import odin.homework.mobilebankingv2.api.account.web.AccountDto;
+import odin.homework.mobilebankingv2.api.account.web.AccountRenameDto;
 import odin.homework.mobilebankingv2.api.account.web.CreateAccountDto;
 import org.mapstruct.Mapper;
 
@@ -16,4 +17,7 @@ public interface AccountMapstruct {
 
 //    createAccountDtoToModel
     Account createAccountDtoToModel (CreateAccountDto model);
+
+//    AccountRenameDtoToModel
+    Account AccountRenameDtoToModel (AccountRenameDto accountRenameDto);
 }

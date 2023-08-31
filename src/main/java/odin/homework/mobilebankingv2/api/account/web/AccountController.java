@@ -24,9 +24,20 @@ public class AccountController {
         return accountService.findByUuid(uuid);
     }
 
+//    TODO: create new account
     @PostMapping
     public ResponseEntity<?> createNewAccount(@RequestBody CreateAccountDto createAccountDto){
         var newAccount = accountService.createNewAccount(createAccountDto);
         return ResponseEntity.ok(newAccount);
     }
+
+//    TODO: rename
+
+    @PutMapping("/{uuid}/rename")
+    public ResponseEntity<?> renameAccount(@PathVariable String uuid, @RequestBody AccountRenameDto accountRenameDto){
+        var accountRename = accountService.renameAccount(uuid,accountRenameDto);
+        return ResponseEntity.ok(accountRename);
+    }
+
+
 }

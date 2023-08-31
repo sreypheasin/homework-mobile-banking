@@ -38,12 +38,16 @@ public class DataSources {
                 .name("Odin")
                 .gender("f")
                 .email("odinn@gmail.com")
+                .phoneNumber("015 799 159")
+                .isDeleted(false)
                 .build();
         User user2 = User.builder()
                 .uuid(UUID.randomUUID().toString())
                 .name("Sen")
                 .gender("m")
                 .email("senpai@gmail.com")
+                .phoneNumber("078 808 938")
+                .isDeleted(false)
                 .build();
 
 

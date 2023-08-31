@@ -27,4 +27,18 @@ public interface UserService {
      */
     UserDto createNewUser (CreateUserDto createUserDto);
 
+    /**
+     * Deleted User by Uuid
+     * @param uuid
+     */
+    void deleteUserByUuid(String uuid);
+
+    /**
+     * Update user by uuid
+     * @param uuid
+     * @param createUserDto
+     * @return
+     */
+    UserDto updateUserByUuid (String uuid, CreateUserDto createUserDto);
+
 }

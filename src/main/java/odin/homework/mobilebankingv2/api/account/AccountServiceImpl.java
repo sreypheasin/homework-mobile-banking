@@ -2,10 +2,14 @@ package odin.homework.mobilebankingv2.api.account;
 
 import lombok.AllArgsConstructor;
 import odin.homework.mobilebankingv2.api.account.web.AccountDto;
+import odin.homework.mobilebankingv2.api.account.web.AccountRenameDto;
 import odin.homework.mobilebankingv2.api.account.web.CreateAccountDto;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -47,4 +51,18 @@ public class AccountServiceImpl implements AccountService{
 
         return accountMapstruct.modelToDto(account) ;
     }
+
+    @Override
+    public AccountDto renameAccount(String uuid ,AccountRenameDto accountRenameDto) {
+
+        Account account =  accountRepository.findByUuid(uuid).orElseThrow(
+                ()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found")
+        );
+
+        account.setAccountName(accountRenameDto.accountName());
+        Account renameAccount = accountRepository.save(account);
+
+        return accountMapstruct.modelToDto(renameAccount);
+    }
+
 }

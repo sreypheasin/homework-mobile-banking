@@ -1,6 +1,7 @@
 package odin.homework.mobilebankingv2.api.account;
 
 import odin.homework.mobilebankingv2.api.account.web.AccountDto;
+import odin.homework.mobilebankingv2.api.account.web.AccountRenameDto;
 import odin.homework.mobilebankingv2.api.account.web.CreateAccountDto;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -25,4 +26,7 @@ public interface AccountService {
      * @return
      */
     AccountDto createNewAccount(CreateAccountDto createAccountDto);
+
+    AccountDto renameAccount (String uuid, AccountRenameDto accountRenameDto);
+
 }
